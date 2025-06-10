@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "nodemon --watch 'src/**/*.ts' --exec ts-node src/server.ts"
+    "dev": "nodemon --watch 'src/**/*.ts' --exec ts-node src/server.ts"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "nodemon": "^3.1.10",
     "prisma": "^6.9.0",
     "zod": "^3.25.56"
   },
