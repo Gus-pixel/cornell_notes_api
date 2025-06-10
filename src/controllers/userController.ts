@@ -6,7 +6,8 @@ import { prisma } from '../prisma/prisma';
 export const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
     const users = await prisma.user.findMany();
-    res.status(200).json(users);
+    const usersWithoutPassword = users.map(({ senha, ...user }) => user);
+    res.status(200).json(usersWithoutPassword);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Erro ao buscar usuários.' });
@@ -24,7 +25,8 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    res.status(200).json(user);
+    const { senha, ...userWithoutPassword } = user;
+    res.status(200).json(userWithoutPassword);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Erro ao buscar usuário.' });
