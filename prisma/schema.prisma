@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserType {
+  gratuito
+  premium
+}
+
+model User {
+  id     String   @id @default(uuid())
+  nome   String
+  email  String   @unique
+  senha  String
+  tipo   UserType
+  folhas FolhaCornell[]
+}
+
+model FolhaCornell {
+  id                   String   @id @default(uuid())
+  usuario              User     @relation(fields: [usuarioId], references: [id])
+  usuarioId            String
+  materia              String
+  titulo               String
+  resumo               String
+  palavras_chave       String[]
+  anotacoes_relevantes String[]
+  cores_personalizadas Json?
+}
