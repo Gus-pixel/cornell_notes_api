@@ -25,10 +25,10 @@ model FolhaCornell {
   id                   String   @id @default(uuid())
   usuario              User     @relation(fields: [usuarioId], references: [id])
   usuarioId            String
-  materia              String
-  titulo               String
-  resumo               String
-  palavras_chave       String[]
-  anotacoes_relevantes String[]
+  materia              String?
+  titulo               String?
+  resumo               String?
+  palavras_chave       String[]?
+  anotacoes_relevantes String[]?
   cores_personalizadas Json?
 }
