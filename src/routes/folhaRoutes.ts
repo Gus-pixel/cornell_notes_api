@@ -5,6 +5,7 @@ import {
   createFolha,
   updateFolha,
   deleteFolha,
+  searchFolha,
 } from '../controllers/folhaController';
 
 const router = Router();
@@ -14,5 +15,6 @@ router.get('/folha/:id', getFolha);
 router.post('/folha', createFolha);
 router.put('/folha/:id', updateFolha);
 router.delete('/folha/:id', deleteFolha);
+router.get('/folha/busca', searchFolha);
 
 export default router;

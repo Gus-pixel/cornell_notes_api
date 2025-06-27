@@ -96,3 +96,32 @@ export const deleteFolha = async (
     res.status(400).json({ error: 'Erro ao deletar folha.' });
   }
 };
+
+export const searchFolha = async (req: Request, res: Response): Promise<void> => {
+  const query = req.query.q as string;
+
+  if (!query) {
+    res.status(400).json({ error: 'Query de busca (q) é obrigatória.' });
+    return;
+  }
+
+  try {
+    const folhas = await prisma.folhaCornell.findMany({
+      where: {
+        OR: [
+          { titulo: { contains: query, mode: 'insensitive' } },
+          { resumo: { contains: query, mode: 'insensitive' } },
+          { palavras_chave: { has: query } }, // para array de palavras-chave
+          { materia: { contains: query, mode: 'insensitive' } },
+          { anotacoes_relevantes: { has: query } }, // caso seja array de string
+        ],
+      },
+    });
+
+    res.status(200).json(folhas);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao buscar folhas.' });
+  }
+};
+
